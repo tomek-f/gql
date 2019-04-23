@@ -1,0 +1,46 @@
+{
+  "name": "@tomekf/gqlite",
+  "version": "0.0.0-beta.0",
+  "description": "Lightweight GraphQL requests",
+  "main": "dist/index.js",
+  "module": "src/index.js",
+  "scripts": {
+    "start": "npm run build",
+    "prepare": "npm run build",
+    "build": "babel src --out-dir dist --source-maps --ignore test.js",
+    "eslint-src": "eslint src/**/*.js"
+  },
+  "repository": "tomek-f/gqlite",
+  "files": [
+    "dist",
+    "src",
+    "*.md",
+    "yarn.lock",
+    ".eslintignore",
+    ".eslintrc.js",
+    ".babelrc",
+    ".gitignore"
+  ],
+  "readmeFilename": "README.md",
+  "keywords": [
+    "graphql",
+    "gql"
+  ],
+  "author": "Tomek Fijoł <tomekfijol@gmail.com> (http://tomekf.pl/)",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-add-module-exports": "^1.0.2",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.17.2"
+  },
+  "peerDependencies": {
+    "regenerator-runtime": "^0.13.2"
+  }
+}
