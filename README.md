@@ -13,10 +13,18 @@ yarn add @tomekf/gqlight # or npm i @tomekf/gqlight
 ```js
 import gqlight from '@tomekf/gqlight';
 // …
-gqlight(url, { query, variables, headers, method, ...other })
+gqlight(url, { query, variables, headers, method, ...other }).then(/* … */).catch(/* … */);
 ```
 
+Use `body` instead of `query`/`variables` pair for sending batch requests.
+
 Use `rawRequest` for raw json response (no parsing).
+
+## Important
+
+Requires Promise, fetch and Headers support.
+Use [core-js](https://www.npmjs.com/package/core-js) for Promise or sth else.
+Use [whatwg-fetch](https://www.npmjs.com/package/whatwg-fetch) for fetch/Headers or sth else.
 
 ## Versions
 
