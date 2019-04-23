@@ -1,19 +1,19 @@
-# @tomekf/gqlight
+# @tomekf/gqlite
 
 > Lightweight GraphQL requests
 
 ## Installation
 
 ```bash
-yarn add @tomekf/gqlight # or npm i @tomekf/gqlight
+yarn add @tomekf/gqlite # or npm i @tomekf/gqlite
 ```
 
 ## Usage
 
 ```js
-import gqlight from '@tomekf/gqlight';
+import gqlite from '@tomekf/gqlite';
 // …
-gqlight(url, { query, variables, headers, method, ...other }).then(/* … */).catch(/* … */);
+gqlite(url, { query, variables, headers, method, ...other }).then(/* … */).catch(/* … */);
 ```
 
 Use `body` instead of `query`/`variables` pair for sending batch requests.
@@ -28,9 +28,9 @@ Use [whatwg-fetch](https://www.npmjs.com/package/whatwg-fetch) for fetch/Headers
 
 ## Versions
 
-* ES5 CommonJs `@tomekf/gqlight/dist`
-* ES6+ with ESM `@tomekf/gqlight/src`
+* ES5 CommonJs `@tomekf/gqlite/dist`
+* ES6+ with ESM `@tomekf/gqlite/src`
 
 ## Changelog
 
-[here](https://github.com/tomek-f/gqlight/blob/master/CHANGELOG.md)
+[here](https://github.com/tomek-f/gqlite/blob/master/CHANGELOG.md)

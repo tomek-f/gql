@@ -42,7 +42,7 @@ function headersJSON(obj) {
   });
 }
 
-export default async function gqlight(
+export default async function gqlite(
   url = '',
   {
     query,
