@@ -14,11 +14,17 @@ class GraphQLClientError extends Error {
   }
 
   static extractErrorMessage(response) {
+    let message;
+
     try {
-      return response.errors[0].message;
+      message = response.error // string
+        || response.errors && response.errors[0].message // object
+        || Array.isArray(response.result) && response.result.find(({ errors }) => errors.length).errors[0].message; // array
     } catch (err) {
-      return `GraphQL Error (Code: ${response.status})`;
+      message = `GraphQL Error (Code: ${response.status})`;
     }
+
+    return message;
   }
 
 }
@@ -73,10 +79,23 @@ export default async function gqlite(
       return result.data;
     }
 
-    return { ...result, status, headers: responseHeaders };
+    return { result, status, headers: responseHeaders };
   }
 
-  const errorResult = typeof result === 'string' ? { error: result } : result;
+  const resultType = Array.isArray(result) ? 'array' : typeof result;
+  let errorResult;
+
+  switch (resultType) {
+    case 'string':
+      errorResult = { error: result };
+      break;
+    case 'array':
+      // in batch request (array of query and variables objects)
+      errorResult = { result };
+      break;
+    default:
+      errorResult = result;
+  }
 
   throw new GraphQLClientError(
     { ...errorResult, status, headers: responseHeaders },
