@@ -1,7 +1,7 @@
 class GraphQLClientError extends Error {
 
   constructor(response, request) {
-    const message = `${GraphQLClientError.extractErrroMessage(response)}: ${JSON.stringify({ response, request })}`;
+    const message = `${GraphQLClientError.extractErrorMessage(response)}: ${JSON.stringify({ response, request })}`;
 
     super(message);
 
@@ -13,7 +13,7 @@ class GraphQLClientError extends Error {
     }
   }
 
-  static extractErrroMessage(response) {
+  static extractErrorMessage(response) {
     try {
       return response.errors[0].message;
     } catch (err) {
@@ -32,6 +32,8 @@ async function getBody(response) {
 
   return response.text();
 }
+
+const checkResults = ({ data, errors }) => data && !errors;
 
 function headersJSON(obj) {
   return new Headers({
@@ -66,7 +68,7 @@ export default async function gqlite(
   const result = await getBody(response);
   const { headers: responseHeaders, status } = response;
 
-  if (response.ok && !result.errors && result.data) {
+  if (response.ok && (checkResults(result) || result.length && result.every(checkResults))) {
     if (!rawRequest) {
       return result.data;
     }
