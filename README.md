@@ -18,7 +18,7 @@ gqlite(url, { query, variables, headers, method, ...other }).then(/* … */).cat
 
 Use `body` instead of `query`/`variables` pair for sending batch requests.
 
-Use `rawRequest` for raw json response (no parsing).
+(And then) use `rawRequest` for raw json response (no parsing).
 
 ## Important
 
