@@ -1,7 +1,7 @@
 class GraphQLClientError extends Error {
 
   constructor(response, request) {
-    const message = `${GraphQLClientError.extractErrorMessage(response)}: ${JSON.stringify({ response, request })}`;
+    const message = `GraphQL Error: ${GraphQLClientError.extractErrorMessage(response)}`;
 
     super(message);
 
@@ -21,7 +21,7 @@ class GraphQLClientError extends Error {
         || response.errors && response.errors[0].message // object
         || Array.isArray(response.result) && response.result.find(({ errors }) => errors.length).errors[0].message; // array
     } catch (err) {
-      message = `GraphQL Error (Code: ${response.status})`;
+      message = `status ${response.status}`;
     }
 
     return message;
@@ -57,6 +57,7 @@ export default async function gqlite(
     variables,
     body,
     method = 'post',
+    errorRequestVariables = false,
     headers,
     rawRequest,
     ...rest
@@ -99,6 +100,6 @@ export default async function gqlite(
 
   throw new GraphQLClientError(
     { ...errorResult, status, headers: responseHeaders },
-    { query, variables },
+    { query, variables: errorRequestVariables ? variables : '*** set `errorRequestVariables` to `true` ***' },
   );
 }

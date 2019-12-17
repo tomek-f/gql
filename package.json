@@ -1,6 +1,6 @@
 {
   "name": "@tomekf/gqlite",
-  "version": "0.0.0-beta.6",
+  "version": "0.0.0-beta.7",
   "description": "Lightweight GraphQL requests",
   "main": "dist/index.js",
   "scripts": {
