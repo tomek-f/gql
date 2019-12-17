@@ -1,3 +1,5 @@
+const noVariables = '@tomek-f/gqlite: set `errorRequestVariables` to `true` to get request\'s variables';
+
 class GraphQLClientError extends Error {
 
   constructor(response, request) {
@@ -5,8 +7,8 @@ class GraphQLClientError extends Error {
 
     super(message);
 
-    this.response = response;
     this.request = request;
+    this.response = response;
 
     if (typeof Error.captureStackTrace === 'function') {
       Error.captureStackTrace(this, GraphQLClientError);
@@ -63,12 +65,10 @@ export default async function gqlite(
     ...rest
   } = {},
 ) {
-  body = JSON.stringify(body || { query, variables });
-
   const response = await fetch(url, {
     method,
     headers: headersJSON(headers),
-    body,
+    body: JSON.stringify(body || { query, variables }),
     ...rest,
   });
 
@@ -91,7 +91,7 @@ export default async function gqlite(
       errorResult = { error: result };
       break;
     case 'array':
-      // in batch request (array of query and variables objects)
+      // batch request (array of query and variables objects)
       errorResult = { result };
       break;
     default:
@@ -99,7 +99,7 @@ export default async function gqlite(
   }
 
   throw new GraphQLClientError(
-    { ...errorResult, status, headers: responseHeaders },
-    { query, variables: errorRequestVariables ? variables : '*** set `errorRequestVariables` to `true` ***' },
+    { ...errorResult, headers: responseHeaders, status },
+    { body, query, variables: errorRequestVariables ? variables : noVariables },
   );
 }
