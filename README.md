@@ -22,9 +22,7 @@ Use `body` instead of `query`/`variables` pair for sending batch requests.
 
 ## Important
 
-Requires Promise, fetch and Headers support.
-Use [core-js](https://www.npmjs.com/package/core-js) for Promise or sth else.
-Use [whatwg-fetch](https://www.npmjs.com/package/whatwg-fetch) for fetch/Headers or sth else.
+Requires async/await, Promise, fetch and Headers support.
 
 ## Versions
 
